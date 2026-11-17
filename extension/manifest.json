@@ -1,0 +1,67 @@
+{
+  "manifest_version": 3,
+  "name": "OxyCamp Auto QA",
+  "version": "0.6.11",
+  "description": "OxyCamp Auto QA by Dvizioon",
+  "permissions": ["storage", "alarms", "activeTab", "scripting", "tabs", "clipboardRead"],
+  "host_permissions": [
+    "https://oxyeducorp.oxygeni.com.br/*",
+    "http://oxyeducorp.oxygeni.com.br/*",
+    "https://openrouter.ai/*",
+    "https://generativelanguage.googleapis.com/*",
+    "https://api.groq.com/*",
+    "https://chatgpt.com/*",
+    "https://chat.openai.com/*"
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "OxyCamp // Dvizioon",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "background": {
+    "service_worker": "background/index.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://oxyeducorp.oxygeni.com.br/*"],
+      "js": ["page/unlock.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://oxyeducorp.oxygeni.com.br/*"],
+      "js": [
+        "content/namespace.js",
+        "content/version.js",
+        "content/dom.js",
+        "content/settings.js",
+        "content/bridge.js",
+        "content/presence.js",
+        "content/quiz.js",
+        "content/nav.js",
+        "content/skip.js",
+        "content/video.js",
+        "content/main.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    },
+    {
+      "matches": ["https://chatgpt.com/*", "https://chat.openai.com/*"],
+      "js": ["content/chatgpt-bridge.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ]
+}

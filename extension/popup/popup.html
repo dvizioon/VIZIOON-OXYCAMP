@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>OxyCamp</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <header class="hdr">
+    <div class="hdr-top">
+      <div class="brand">
+        <img class="logo" src="../icons/icon48.png" width="36" height="36" alt="" />
+        <h1>OXY<span>CAMP</span></h1>
+      </div>
+      <div class="status-dot" title="online"></div>
+    </div>
+    <p class="by">by <strong>Dvizioon</strong></p>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button type="button" class="tab active" data-tab="ops">Ops</button>
+    <button type="button" class="tab" data-tab="ai">IA</button>
+    <button type="button" class="tab" data-tab="video">Vídeo</button>
+    <button type="button" class="tab" data-tab="logs">Logs</button>
+  </nav>
+
+  <section id="panel-ops" class="panel active">
+    <div class="row"><label for="enabled">Ativo</label><input id="enabled" type="checkbox" /></div>
+    <div class="row"><label for="freeSeek">Liberar seek</label><input id="freeSeek" type="checkbox" /></div>
+    <div class="row"><label for="autoPresence">Presença</label><input id="autoPresence" type="checkbox" /></div>
+    <div class="row"><label for="antiBlur">Anti-blur</label><input id="antiBlur" type="checkbox" /></div>
+    <div class="row"><label for="autoPlay">Retomar play</label><input id="autoPlay" type="checkbox" /></div>
+    <div class="row"><label for="autoModules">Avançar aulas</label><input id="autoModules" type="checkbox" /></div>
+    <div class="row"><label for="autoQuiz">Abrir quiz</label><input id="autoQuiz" type="checkbox" /></div>
+    <div class="row"><label for="aiQuiz">Quiz com IA</label><input id="aiQuiz" type="checkbox" /></div>
+
+    <div class="watch">
+      <div class="section-label">Assistir</div>
+      <div class="seek">
+        <button id="watch10s" type="button" class="btn ghost">+10s</button>
+        <button id="watch1m" type="button" class="btn">+1 min</button>
+        <button id="watch10m" type="button" class="btn warn">+10 min</button>
+      </div>
+      <div class="watch-custom">
+        <label for="creditMinutes">Minutos</label>
+        <div class="ai-row">
+          <input id="creditMinutes" type="number" min="0.1" step="0.5" value="10" />
+          <button id="watchCustom" type="button" class="btn hack">Assistir</button>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-meta" id="creditMeta">Parado</div>
+        <div class="progress-bar"><span id="creditFill"></span></div>
+        <div class="progress-meta" id="creditDetail"></div>
+        <button id="creditStop" type="button" class="btn stop">Parar</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="panel-ai" class="panel">
+    <div class="ai">
+      <label for="aiProvider">Provedor</label>
+      <div class="ai-row">
+        <select id="aiProvider">
+          <option value="openrouter">OpenRouter</option>
+          <option value="gemini">Gemini</option>
+          <option value="groq">Groq</option>
+          <option value="chatgpt">ChatGPT</option>
+        </select>
+        <a id="providerSite" class="btn hack link-btn" href="https://openrouter.ai/keys" target="_blank" rel="noopener">Key</a>
+      </div>
+
+      <div id="aiKeyWrap">
+        <label for="aiKey" id="aiKeyLabel">API key</label>
+        <input id="aiKey" type="password" autocomplete="off" placeholder="cole a key" />
+        <div class="ai-row">
+          <button id="saveKey" type="button" class="btn hack">Salvar</button>
+          <button id="clearKey" type="button" class="btn stop">Limpar</button>
+        </div>
+        <div class="progress-meta" id="keyStatus"></div>
+      </div>
+
+      <div class="ai-row">
+        <input id="modelFilter" type="search" placeholder="filtrar modelo" aria-label="Filtrar modelo" />
+        <button id="refreshModels" type="button" class="btn ghost" title="Atualizar">↻</button>
+      </div>
+      <label for="aiModel">Modelo</label>
+      <select id="aiModel" size="6"></select>
+      <div id="modelMeta"></div>
+
+      <div class="section-label">Teste</div>
+      <textarea id="testPrompt" rows="3" placeholder="manda uma pergunta pro provedor"></textarea>
+      <div class="ai-row">
+        <input id="testMaxTokens" type="number" min="32" max="4096" step="32" value="512" title="limite de tokens" />
+        <button id="testAsk" type="button" class="btn">Perguntar</button>
+      </div>
+      <pre id="testReply" class="test-reply"></pre>
+    </div>
+  </section>
+
+  <section id="panel-video" class="panel">
+    <div class="video-box">
+      <div class="progress-meta" id="videoTitle"></div>
+      <label>ID do YouTube</label>
+      <div class="ai-row">
+        <input id="youtubeId" type="text" readonly placeholder="ainda não" />
+        <button id="copyYtId" type="button" class="btn ghost">Copiar</button>
+      </div>
+      <div class="video-actions">
+        <button id="refreshVideo" type="button" class="btn">Ler aula</button>
+        <a id="openYoutube" class="btn hack link-btn" href="#" target="_blank" rel="noopener">Abrir</a>
+        <a id="openEmbed" class="btn ghost link-btn" href="#" target="_blank" rel="noopener">Embed</a>
+      </div>
+      <div class="section-label" style="margin-top:12px">Baixar</div>
+      <div class="video-actions">
+        <a id="dlCobalt" class="btn warn link-btn" href="#" target="_blank" rel="noopener">cobalt</a>
+        <a id="dlY2mate" class="btn warn link-btn" href="#" target="_blank" rel="noopener">y2mate</a>
+        <a id="dlSaveto" class="btn warn link-btn" href="#" target="_blank" rel="noopener">savefrom</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="panel-logs" class="panel">
+    <div id="logs"></div>
+    <button id="clear" type="button" class="btn stop">Limpar</button>
+  </section>
+
+  <footer class="foot">
+    <span>OxyCamp</span>
+    <span class="by">Dvizioon</span>
+  </footer>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

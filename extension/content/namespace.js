@@ -1,0 +1,3 @@
+(() => {
+  globalThis.OxyCamp = globalThis.OxyCamp || {};
+})();

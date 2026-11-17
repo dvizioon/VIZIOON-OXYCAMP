@@ -1,0 +1,10 @@
+{
+  "name": "plugin-oxycamp",
+  "version": "0.6.11",
+  "private": true,
+  "type": "module",
+  "description": "OxyEduCorp Auto QA by Dvizioon — multi-AI quiz, watch credit, YouTube extract",
+  "scripts": {
+    "test": "node tests/security/v01-ping-rate-limit.test.mjs && node tests/security/v02-presence-is-client-only.test.mjs && node tests/security/v03-blur-pause-bypassable.test.mjs && node tests/security/v04-gabarito-leaked-in-client.test.mjs && node tests/security/v06-seek-lock-client-only.test.mjs && node tests/security/v06b-popup-reinject.test.mjs && node tests/security/v07-quiz-no-restart.test.mjs && node tests/security/v08-next-lesson-forward-only.test.mjs && node tests/security/v09-seek-end-uses-live-yt.test.mjs && node tests/security/v10-incremental-ping-credit.test.mjs && node tests/security/v11-openrouter-quiz-solver.test.mjs && node tests/security/v12-modular-openrouter-models.test.mjs && node tests/security/v13-watch-credit-progress-ui.test.mjs && node tests/security/v14-completar-uses-bloco.test.mjs && node tests/security/v15-multi-ai-video-hacker-ui.test.mjs && node tests/security/v16-quiz-no-reopen-same-aula.test.mjs && node tests/security/v17-pular-leitura-no-quiz.test.mjs && node tests/security/v18-chatgpt-session-bridge.test.mjs && node tests/security/v19-provider-key-storage-test-ask.test.mjs"
+  }
+}
